@@ -8,21 +8,31 @@ from .models import Stonk
 
 def index_view(request):
     return HttpResponse('''
-        <script type="text/javascript">
-            async function fluctuate() {
-                document.getElementById('fluctuator').innerHTML = await (await fetch('/refresh')).text()
-            }
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+            <script type="text/javascript">
+                async function fluctuate() {
+                    document.getElementById('fluctuator').innerHTML = await (await fetch('/refresh')).text()
+                }
 
-            async function getTop() {
-                document.getElementById('top').innerHTML = await (await fetch('/top')).text()
-            }
-        </script>
+                async function getTop() {
+                    document.getElementById('top').innerHTML = await (await fetch('/top')).text()
+                }
+            </script>
+        </head>
         <body>
-            <button onclick="fluctuate()">Fluctuate stonks (takes a bit)</button>
-            <button onclick="getTop()">Get top stonks</button>
-            <div id="fluctuator"></div>
-            <div id="top"></div>
+            <div class="container">
+                <div>
+                    <button onclick="fluctuate()" class="button is-primary">Fluctuate stonks (takes a bit)</button>
+                    <button onclick="getTop()" class="button is-primary">Get top stonks</button>
+                </div>
+                <div id="fluctuator"></div>
+                <div id="top"></div>
+            </div>
         </body>
+        </html>
     ''')
 
 
